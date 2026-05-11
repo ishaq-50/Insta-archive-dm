@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Instagram Chat — {{ participants | join(' & ') }}</title>
+    <meta name="description" content="Instagram DM Archive Viewer — browse your exported conversations in a beautiful interface">
+
+    <!-- Google Fonts — Inter (loaded locally-first, with safe fallback) -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+    </style>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<!-- ═══ Initial Loading Screen ═══ -->
+<div id="initial-loader">
+    <div class="loader-icon">💬</div>
+    <div class="loader-text">Loading conversation…</div>
+    <div class="loader-bar">
+        <div class="loader-bar-fill"></div>
+    </div>
+</div>
+
+<!-- ═══ App Container ═══ -->
+<div id="app-container">
+
+    <!-- ─── Header ────────────────────────────────────────────── -->
+    <header id="chat-header">
+        <div class="header-avatar">
+            R
+        </div>
+        <div class="header-info">
+            <div class="header-name">Rayyan</div>
+            <div class="header-status" id="header-status">{{ total }} messages</div>
+        </div>
+        <div class="header-actions">
+            <button class="header-btn" id="search-toggle-btn" onclick="toggleSearch()" title="Search messages">
+                🔍
+            </button>
+            <button class="header-btn" id="gallery-toggle-btn" onclick="toggleGallery()" title="Media gallery">
+                🖼
+            </button>
+        </div>
+    </header>
+
+    <!-- ─── Search Bar ────────────────────────────────────────── -->
+    <div id="search-container">
+        <div class="search-inner">
+            <input type="text" id="search-input" placeholder="Search messages…" autocomplete="off">
+            <span id="search-count"></span>
+        </div>
+    </div>
+
+    <!-- ─── Tab Bar (Chat / Gallery) ──────────────────────────── -->
+    <div id="tab-bar">
+        <button class="tab-btn active" data-tab="chat" onclick="switchTab('chat')">💬 Chat</button>
+        <button class="tab-btn" data-tab="gallery" onclick="switchTab('gallery')">📷 Gallery</button>
+    </div>
+
+    <!-- ─── Chat View ─────────────────────────────────────────── -->
+    <div id="chat-view">
+        <div id="chat-messages">
+            <!-- Loading indicator (for older messages) -->
+            <div id="loading-indicator">
+                <div class="loading-dots">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+            <!-- Messages are injected here by JS -->
+        </div>
+    </div>
+
+    <!-- ─── Gallery View ──────────────────────────────────────── -->
+    <div id="gallery-view">
+        <div class="gallery-grid" id="gallery-grid"></div>
+    </div>
+
+    <!-- ─── Scroll-to-bottom FAB ──────────────────────────────── -->
+    <button id="scroll-bottom-btn" title="Scroll to latest">↓</button>
+
+</div>
+
+<!-- ═══ Image Modal ═══ -->
+<div id="image-modal">
+    <button id="modal-close" onclick="closeModal()">✕</button>
+    <img id="modal-image" src="" alt="Full size image">
+</div>
+
+<!-- ═══ JavaScript ═══ -->
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
